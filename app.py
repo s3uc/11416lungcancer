@@ -4,6 +4,7 @@ import joblib
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 
+
 # =========================
 # 한글 폰트 설정
 # =========================
@@ -36,6 +37,13 @@ h1, h2, h3, h4, h5, h6 {
 
 </style>
 """, unsafe_allow_html=True)
+# =========================
+# 한글 폰트 설정 (간단 버전)
+# =========================
+import matplotlib.pyplot as plt
+
+plt.rc('font', family='Malgun Gothic')  # Windows 기준
+plt.rcParams['axes.unicode_minus'] = False
 # =========================
 # Streamlit 설정
 # =========================
