@@ -1,3 +1,25 @@
+# =========================
+# Streamlit 한글 CSS 적용
+# =========================
+st.markdown("""
+<style>
+
+html, body, [class*="css"]  {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.stButton>button {
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 16px;
+}
+
+</style>
+""", unsafe_allow_html=True)
 import streamlit as st
 import pandas as pd
 import joblib
