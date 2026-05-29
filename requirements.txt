@@ -1,6 +1,6 @@
+streamlit
 pandas
-matplotlib
-seaborn
 scikit-learn
-koreanize-matplotlib
-kagglehub
+joblib
+matplotlib
+numpy
