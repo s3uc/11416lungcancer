@@ -1,25 +1,3 @@
-# =========================
-# Streamlit 한글 CSS 적용
-# =========================
-st.markdown("""
-<style>
-
-html, body, [class*="css"]  {
-    font-family: 'Nanum Gothic', sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Nanum Gothic', sans-serif;
-    font-weight: bold;
-}
-
-.stButton>button {
-    font-family: 'Nanum Gothic', sans-serif;
-    font-size: 16px;
-}
-
-</style>
-""", unsafe_allow_html=True)
 import streamlit as st
 import pandas as pd
 import joblib
@@ -29,13 +7,35 @@ import matplotlib.font_manager as fm
 # =========================
 # 한글 폰트 설정
 # =========================
-font_path = "NanumGothic.ttf"
 
-fontprop = fm.FontProperties(fname=font_path)
-plt.rc('font', family=fontprop.get_name())
+# Windows: 맑은 고딕
+plt.rc('font', family='Malgun Gothic')
 
+# 마이너스 깨짐 방지
 plt.rcParams['axes.unicode_minus'] = False
 
+# =========================
+# Streamlit 한글 CSS 적용
+# =========================
+st.markdown("""
+<style>
+
+html, body, [class*="css"]  {
+    font-family: 'Malgun Gothic', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Malgun Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.stButton>button {
+    font-family: 'Malgun Gothic', sans-serif;
+    font-size: 16px;
+}
+
+</style>
+""", unsafe_allow_html=True)
 # =========================
 # Streamlit 설정
 # =========================
