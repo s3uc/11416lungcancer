@@ -20,7 +20,7 @@ plt.rcParams['axes.unicode_minus'] = False
 # 모델 불러오기
 # =========================
 scaler = joblib.load("scaler.pkl")
-model = joblib.load("model.pkl")
+model = joblib.load("lung_model.pkl")
 
 # =========================
 # Streamlit 화면
