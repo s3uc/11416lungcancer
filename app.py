@@ -3,18 +3,32 @@ import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
+import platform
 
 # =========================
-# 한글 폰트 설정
+# 운영체제별 한글 폰트 설정
 # =========================
-plt.rc('font', family='Malgun Gothic')   # 윈도우
+system_name = platform.system()
+
+if system_name == 'Windows':
+    plt.rc('font', family='Malgun Gothic')
+
+elif system_name == 'Darwin':  # Mac
+    plt.rc('font', family='AppleGothic')
+
+elif system_name == 'Linux':
+    plt.rc('font', family='NanumGothic')
+
 plt.rcParams['axes.unicode_minus'] = False
 
-# Mac 사용 시
-# plt.rc('font', family='AppleGothic')
-
-# Linux 사용 시 (나눔폰트 설치 필요)
-# plt.rc('font', family='NanumGothic')
+# =========================
+# Streamlit 설정
+# =========================
+st.set_page_config(
+    page_title="환자 군집 예측",
+    page_icon="🩺",
+    layout="centered"
+)
 
 # =========================
 # 모델 불러오기
@@ -23,19 +37,13 @@ scaler = joblib.load("scaler.pkl")
 model = joblib.load("lung_model.pkl")
 
 # =========================
-# Streamlit 화면
+# 제목
 # =========================
-st.set_page_config(
-    page_title="환자 군집 예측",
-    page_icon="🩺",
-    layout="centered"
-)
-
 st.title("🩺 환자 군집 예측 시스템")
 st.write("환자의 정보를 입력하세요.")
 
 # =========================
-# 입력 영역
+# 입력창
 # =========================
 age = st.number_input("나이", min_value=0.0, step=1.0)
 tbc = st.number_input("흡연", min_value=0.0, step=1.0)
@@ -62,14 +70,27 @@ if st.button("군집 예측"):
     st.success(f"이 환자는 {pred_cluster[0]}번 군집에 속합니다.")
 
     # =========================
-    # 간단한 시각화
+    # 그래프 출력
     # =========================
-    fig, ax = plt.subplots(figsize=(5, 3))
+    fig, ax = plt.subplots(figsize=(6, 4))
 
     labels = ['나이', '흡연', '알코올']
     values = [age, tbc, alc]
 
-    ax.bar(labels, values)
-    ax.set_title("입력 환자 정보")
+    bars = ax.bar(labels, values, color=['skyblue', 'orange', 'green'])
+
+    ax.set_title("환자 입력 정보", fontsize=16)
+    ax.set_ylabel("값", fontsize=12)
+
+    # 막대 위 숫자 표시
+    for bar in bars:
+        height = bar.get_height()
+        ax.text(
+            bar.get_x() + bar.get_width()/2,
+            height,
+            f'{height:.1f}',
+            ha='center',
+            va='bottom'
+        )
 
     st.pyplot(fig)
